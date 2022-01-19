@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
+import 'package:expense_planning_app/widgets/transaction_list.dart';
+
 import './widgets/new_transaction.dart';
-import './widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
 import './models/transaction.dart';
+import './widgets/chart.dart';
 
 void main() {
   runApp(MyApp());
@@ -49,6 +51,14 @@ class _MyHomePageState extends State<MyHomePage> {
     // Transaction('t2', 'New Jacket', 99.99, DateTime.now())
   ];
 
+  List<Transaction> get _recentTransactions {
+    return _userTransactions.where((tx) {
+      return tx.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7),
+      ));
+    }).toList();
+  }
+
   void _addNewTransaction(String title, double amount) {
     final newTx =
         Transaction(DateTime.now().toString(), title, amount, DateTime.now());
@@ -82,21 +92,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 100,
-              width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                child: Center(child: Text('CHART!')),
-                elevation: 5,
-              ),
-            ),
-            TransactionList(_userTransactions),
-          ],
-        ),
-      ),
+          child: Column(
+        children: [
+          Chart(_userTransactions),
+          TransactionList(_userTransactions),
+        ],
+      )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
