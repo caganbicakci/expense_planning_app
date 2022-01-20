@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/transaction.dart';
 import 'package:intl/intl.dart';
-<<<<<<< HEAD
 import './chart_bar.dart';
-=======
->>>>>>> f1135669c10825681963442edee63e1353f81445
 
 class Chart extends StatelessWidget {
   final List<Transaction> recentTransactions;
@@ -25,49 +22,38 @@ class Chart extends StatelessWidget {
         }
       }
 
-<<<<<<< HEAD
       return {
-        'day': DateFormat.E().format(weekDay).substring(0, 1),
+        'day': DateFormat.E().format(weekDay).substring(0, 3),
         'amount': totalSum
       };
-    });
+    }).reversed.toList();
   }
 
   double get totalSpending {
     return groupedTransactionValues.fold(0.0, (sum, item) {
       return sum + (item['amount'] as double);
-=======
-      print(DateFormat.E().format(weekDay));
-      print(totalSum);
-
-      return {'day': DateFormat.E().format(weekDay), 'amount': 9.99};
->>>>>>> f1135669c10825681963442edee63e1353f81445
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-<<<<<<< HEAD
         elevation: 6,
         margin: EdgeInsets.all(20),
-        child: Row(
-          children: groupedTransactionValues.map((data) {
-            return ChartBar(
-                data['day'] as String,
-                data['amount'] as double,
-                totalSpending == 0.0
-                    ? 0.0
-                    : (data['amount'] as double) / totalSpending);
-          }).toList(),
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            children: groupedTransactionValues.map((data) {
+              return Expanded(
+                child: ChartBar(
+                    data['day'] as String,
+                    data['amount'] as double,
+                    totalSpending == 0.0
+                        ? 0.0
+                        : (data['amount'] as double) / totalSpending),
+              );
+            }).toList(),
+          ),
         ));
-=======
-      elevation: 6,
-      margin: EdgeInsets.all(20),
-      child: Row(
-        children: [],
-      ),
-    );
->>>>>>> f1135669c10825681963442edee63e1353f81445
   }
 }
