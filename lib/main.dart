@@ -26,7 +26,11 @@ class MyApp extends StatelessWidget {
                 headline6: TextStyle(
                     fontFamily: 'OpenSans',
                     fontWeight: FontWeight.bold,
-                    fontSize: 18)),
+                    fontSize: 18),
+                button: TextStyle(color: Colors.white)),
+            accentTextTheme: ThemeData.light()
+                .textTheme
+                .copyWith(headline6: TextStyle(color: Colors.white)),
             appBarTheme: AppBarTheme(
                 titleTextStyle: ThemeData.light()
                     .textTheme
@@ -46,10 +50,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransactions = [
-    // Transaction('t1', 'New Shoes', 49.99, DateTime.now()),
-    // Transaction('t2', 'New Jacket', 99.99, DateTime.now())
-  ];
+  final List<Transaction> _userTransactions = [];
 
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
@@ -59,9 +60,8 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String title, double amount) {
-    final newTx =
-        Transaction(DateTime.now().toString(), title, amount, DateTime.now());
+  void _addNewTransaction(String title, double amount, DateTime date) {
+    final newTx = Transaction(DateTime.now().toString(), title, amount, date);
 
     setState(() {
       _userTransactions.add(newTx);
