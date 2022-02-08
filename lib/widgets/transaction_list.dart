@@ -13,7 +13,6 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-        height: 600,
         child: transactions.isEmpty
             ? Column(
                 children: [
